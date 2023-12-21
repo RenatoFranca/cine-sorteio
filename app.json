@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "CineSorteio",
+    "name": "Cine Sorteio",
     "slug": "CineSorteio",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,16 +15,23 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.renatofranca.CineSorteio"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.renatofranca.CineSorteio"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "761d1f13-0126-4465-a8c7-fe025f7601fb"
+      }
     }
   }
 }
