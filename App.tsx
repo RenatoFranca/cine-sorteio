@@ -9,9 +9,9 @@ import {
   Input,
   Image,
   Text,
-  Button,
   XStack,
   Heading,
+  Spinner,
 } from "tamagui";
 import { useDebounce } from "use-debounce";
 import axios from "axios";
@@ -20,6 +20,7 @@ import config from "./tamagui.config";
 import { useEffect, useState } from "react";
 
 import { useFonts } from "expo-font";
+import Button from "@/core/Button";
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
@@ -33,6 +34,7 @@ export default function App() {
   const [searchResults, setSearchResults] = useState([]);
   const [selectedMovies, setSelectedMovies] = useState([]);
   const [winner, setWinner] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [isSearchActive, setIsSearchActive] = useState(false);
 
   useEffect(() => {
@@ -43,6 +45,8 @@ export default function App() {
 
   useEffect(() => {
     if (debouncedSearchText) {
+      setIsLoading(true);
+
       axios
         .get(
           `https://api.themoviedb.org/3/search/movie?query=${debouncedSearchText}&language=pt-BR&api_key=${API_KEY}`
@@ -53,6 +57,9 @@ export default function App() {
         })
         .catch((error) => {
           console.error(error);
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     } else {
       setSearchResults([]); // Limpa os resultados se o texto de pesquisa for apagado
@@ -143,7 +150,7 @@ export default function App() {
                   marginTop="$2"
                   zIndex={10}
                 />
-                {searchResults.length > 0 && (
+                {(searchResults.length > 0 || isLoading) && (
                   <YStack
                     position="absolute"
                     top={126}
@@ -156,26 +163,33 @@ export default function App() {
                     maxHeight={320}
                     borderWidth={1}
                   >
-                    <FlatList
-                      data={searchResults}
-                      renderItem={({ item }) => (
-                        <TouchableOpacity
-                          style={styles.item}
-                          onPress={() => handleSelectMovie(item)}
-                        >
-                          <Image
-                            source={{
-                              uri: `https://image.tmdb.org/t/p/w92${item.poster_path}`,
-                            }}
-                            style={styles.posterThumbnail}
-                          />
-                          <Text flex={1} flexWrap="wrap">
-                            {item.title}
-                          </Text>
-                        </TouchableOpacity>
-                      )}
-                      keyExtractor={(item) => item.id.toString()}
-                    />
+                    {isLoading && (
+                      <YStack padding="$4" space="$4" alignItems="center">
+                        <Spinner size="small" color="$color" />
+                      </YStack>
+                    )}
+                    {searchResults.length > 0 && !isLoading && (
+                      <FlatList
+                        data={searchResults}
+                        renderItem={({ item }) => (
+                          <TouchableOpacity
+                            style={styles.item}
+                            onPress={() => handleSelectMovie(item)}
+                          >
+                            <Image
+                              source={{
+                                uri: `https://image.tmdb.org/t/p/w92${item.poster_path}`,
+                              }}
+                              style={styles.posterThumbnail}
+                            />
+                            <Text flex={1} flexWrap="wrap">
+                              {item.title}
+                            </Text>
+                          </TouchableOpacity>
+                        )}
+                        keyExtractor={(item) => item.id.toString()}
+                      />
+                    )}
                   </YStack>
                 )}
                 <FlatList
