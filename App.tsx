@@ -10,7 +10,6 @@ import {
   Image,
   Text,
   XStack,
-  Heading,
   Spinner,
 } from "tamagui";
 import { useDebounce } from "use-debounce";
@@ -21,6 +20,7 @@ import { useEffect, useState } from "react";
 
 import { useFonts } from "expo-font";
 import Button from "@/core/Button";
+import Heading from "@/core/Heading";
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
@@ -62,12 +62,11 @@ export default function App() {
           setIsLoading(false);
         });
     } else {
-      setSearchResults([]); // Limpa os resultados se o texto de pesquisa for apagado
+      setSearchResults([]);
     }
   }, [debouncedSearchText]);
 
   const handleSelectMovie = (movie) => {
-    // Verifique se o filme já está na lista antes de adicioná-lo
     const isMovieAlreadySelected = selectedMovies.some(
       (selectedMovie) => selectedMovie.id === movie.id
     );
@@ -90,7 +89,7 @@ export default function App() {
   };
 
   const handleNewDraw = () => {
-    setWinner(null); // Limpa o vencedor para um novo sorteio
+    setWinner(null);
     setSelectedMovies([]);
   };
 
