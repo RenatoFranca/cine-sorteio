@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { Delete } from "@tamagui/lucide-icons";
 import { BlurView } from "expo-blur";
 import { TamaguiProvider, Text, Theme, XStack } from "tamagui";
@@ -16,6 +16,9 @@ import Input from "@/core/Input";
 import Spinner from "@/core/Spinner";
 import YStack from "@/core/YStack";
 import Image from "@/core/Image";
+import TouchableOpacity from "@/core/TouchableOpacity";
+import MovieCard from "@/components/MovieCard";
+import SelectedMovieCard from "@/components/SelectedMovieCard/SelectedMovieCard";
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
@@ -166,20 +169,11 @@ export default function App() {
                       <FlatList
                         data={searchResults}
                         renderItem={({ item }) => (
-                          <TouchableOpacity
-                            style={styles.item}
+                          <MovieCard
                             onPress={() => handleSelectMovie(item)}
-                          >
-                            <Image
-                              source={{
-                                uri: `https://image.tmdb.org/t/p/w92${item.poster_path}`,
-                              }}
-                              style={styles.posterThumbnail}
-                            />
-                            <Text flex={1} flexWrap="wrap">
-                              {item.title}
-                            </Text>
-                          </TouchableOpacity>
+                            title={item.title}
+                            posterUri={item.poster_path}
+                          />
                         )}
                         keyExtractor={(item) => item.id.toString()}
                       />
@@ -189,35 +183,11 @@ export default function App() {
                 <FlatList
                   data={selectedMovies}
                   renderItem={({ item }) => (
-                    <XStack
-                      borderColor="$borderColor"
-                      borderWidth={1}
-                      padding="$2"
-                      alignItems="center"
-                      marginTop="$2"
-                      borderRadius="$4"
-                    >
-                      <Image
-                        source={{
-                          uri: `https://image.tmdb.org/t/p/w92${item.poster_path}`,
-                        }}
-                        height={75}
-                        width={50}
-                        borderRadius="$1"
-                      />
-                      <Text
-                        flex={1}
-                        color="$color"
-                        paddingHorizontal="$2"
-                        flexWrap="wrap"
-                      >
-                        {item.title}
-                      </Text>
-                      <Button
-                        iconAfter={Delete}
-                        onPress={() => handleRemoveMovie(item.id)}
-                      />
-                    </XStack>
+                    <SelectedMovieCard
+                      title={item.title}
+                      posterUri={item.poster_path}
+                      onPress={() => handleRemoveMovie(item.id)}
+                    />
                   )}
                   keyExtractor={(item) => item.id.toString()}
                   showsHorizontalScrollIndicator={false}
