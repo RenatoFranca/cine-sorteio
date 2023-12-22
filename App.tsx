@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Delete } from "@tamagui/lucide-icons";
 import { BlurView } from "expo-blur";
-import { TamaguiProvider, Theme, Text, XStack } from "tamagui";
+import { TamaguiProvider, Text, Theme, XStack } from "tamagui";
 import { useDebounce } from "use-debounce";
 import axios from "axios";
 
