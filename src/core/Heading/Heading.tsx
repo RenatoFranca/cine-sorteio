@@ -1,9 +1,4 @@
-import {
-  HeadingProps as TamaguiHeadingProps,
-  Heading as TamaguiHeading,
-} from "tamagui";
-
-type HeadingProps = TamaguiHeadingProps;
+import { HeadingProps, Heading as TamaguiHeading } from "tamagui";
 
 const Heading = ({ ...props }: HeadingProps) => {
   return <TamaguiHeading {...props}>{props.children}</TamaguiHeading>;

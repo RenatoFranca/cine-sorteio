@@ -2,16 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { FlatList, StyleSheet, TouchableOpacity, View } from "react-native";
 import { Delete } from "@tamagui/lucide-icons";
 import { BlurView } from "expo-blur";
-import {
-  TamaguiProvider,
-  Theme,
-  YStack,
-  Input,
-  Image,
-  Text,
-  XStack,
-  Spinner,
-} from "tamagui";
+import { TamaguiProvider, Theme, Image, Text, XStack } from "tamagui";
 import { useDebounce } from "use-debounce";
 import axios from "axios";
 
@@ -21,6 +12,9 @@ import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 import Button from "@/core/Button";
 import Heading from "@/core/Heading";
+import Input from "@/core/Input";
+import Spinner from "@/core/Spinner";
+import YStack from "@/core/YStack";
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
 
