@@ -156,67 +156,16 @@ const styles = StyleSheet.create({
   fillSpace: {
     flex: 1,
   },
-  container: {
-    padding: 20,
-    paddingTop: 80,
-  },
-  input: {
-    height: 40,
-    borderColor: "gray",
-    borderWidth: 1,
-    padding: 10,
-  },
-  item: {
-    padding: 10,
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  selectedMovies: {
-    marginBottom: 20,
-  },
-  posterThumbnail: {
-    width: 50,
-    height: 75,
-    marginRight: 10,
-  },
-  selectedItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    marginHorizontal: 5,
-  },
   selectedMoviesList: {
     marginBottom: 20,
-  },
-  poster: {
-    width: 50,
-    height: 75,
-    marginRight: 10,
-  },
-  movieTitle: {
-    flex: 1,
   },
   winnerContainer: {
     alignItems: "center",
     marginTop: 20,
   },
-  winnerPoster: {
-    width: 300,
-    height: 450,
-  },
   winnerTitle: {
     fontSize: 18,
     fontWeight: "bold",
     marginVertical: 8,
-  },
-  dropdownItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 10,
-  },
-  dropdownTitle: {
-    marginLeft: 10,
   },
 });
