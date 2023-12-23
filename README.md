@@ -7,7 +7,6 @@ Cine Sorteio is a mobile application that offers a fun and interactive way to se
 - **Search Functionality**: Quickly find movies with a live search feature as you type.
 - **Random Movie Selection**: Add movies to your list and randomly raffle a movie to watch.
 - **Winner Screen**: Display the raffled movie in a dedicated winner screen with details.
-- **Responsive UI**: Adapts smoothly to different device sizes and orientations.
 - **Dark Mode**: A beautiful dark theme to reduce eye strain during night time.
 
 ## Getting Started
