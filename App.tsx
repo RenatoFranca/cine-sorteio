@@ -1,10 +1,7 @@
 import { StatusBar } from "expo-status-bar";
-import { FlatList, StyleSheet, View } from "react-native";
-import { Delete } from "@tamagui/lucide-icons";
+import { StyleSheet, View } from "react-native";
 import { BlurView } from "expo-blur";
-import { TamaguiProvider, Text, Theme, XStack } from "tamagui";
-import { useDebounce } from "use-debounce";
-import axios from "axios";
+import { TamaguiProvider, Text, Theme } from "tamagui";
 
 import config from "./tamagui.config";
 import { useEffect, useState } from "react";
@@ -12,68 +9,27 @@ import { useEffect, useState } from "react";
 import { useFonts } from "expo-font";
 import Button from "@/core/Button";
 import Heading from "@/core/Heading";
-import Input from "@/core/Input";
-import Spinner from "@/core/Spinner";
 import YStack from "@/core/YStack";
 import Image from "@/core/Image";
 import TouchableOpacity from "@/core/TouchableOpacity";
-import MovieCard from "@/components/MovieCard";
 import SelectedMovieCard from "@/components/SelectedMovieCard/SelectedMovieCard";
-
-const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
+import FlatList from "@/core/FlatList";
+import Search from "@/structures/Search";
 
 export default function App() {
   const [loaded] = useFonts({
     Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
     InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
   });
-  const [searchText, setSearchText] = useState("");
-  const [debouncedSearchText] = useDebounce(searchText, 600);
-  const [searchResults, setSearchResults] = useState([]);
   const [selectedMovies, setSelectedMovies] = useState([]);
   const [winner, setWinner] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSearchActive, setIsSearchActive] = useState(false);
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     if (loaded) {
       // can hide splash screen here
     }
   }, [loaded]);
-
-  useEffect(() => {
-    if (debouncedSearchText) {
-      setIsLoading(true);
-
-      axios
-        .get(
-          `https://api.themoviedb.org/3/search/movie?query=${debouncedSearchText}&language=pt-BR&api_key=${API_KEY}`
-        )
-        .then((response) => {
-          setSearchResults(response.data.results);
-          openSearchResults();
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } else {
-      setSearchResults([]);
-    }
-  }, [debouncedSearchText]);
-
-  const handleSelectMovie = (movie) => {
-    const isMovieAlreadySelected = selectedMovies.some(
-      (selectedMovie) => selectedMovie.id === movie.id
-    );
-    if (!isMovieAlreadySelected) {
-      setSelectedMovies([...selectedMovies, movie]);
-      setSearchText("");
-      closeSearchResults();
-    }
-  };
 
   if (!loaded) {
     return null;
@@ -96,13 +52,10 @@ export default function App() {
   };
 
   const closeSearchResults = () => {
-    setSearchResults([]);
-    setIsSearchActive(false);
+    setSearchText("");
   };
 
-  const openSearchResults = () => {
-    setIsSearchActive(true);
-  };
+  const isSearchActive = searchText !== "";
 
   return (
     <TamaguiProvider config={config}>
@@ -111,7 +64,6 @@ export default function App() {
           style={styles.fillSpace}
           activeOpacity={1}
           onPress={closeSearchResults}
-          // disabled={!isSearchActive}
         >
           {isSearchActive && (
             <>
@@ -135,51 +87,12 @@ export default function App() {
                 <Heading color="$color" textAlign="center">
                   Cine Sorteio
                 </Heading>
-                <Input
-                  placeholder="Pesquisar filme..."
-                  onChangeText={setSearchText}
-                  value={searchText}
-                  backgroundColor="$background"
-                  borderColor="$borderColor"
-                  borderWidth={1}
-                  h={40}
-                  paddingHorizontal="$2"
-                  marginTop="$2"
-                  zIndex={10}
+                <Search
+                  setSelectedMovies={setSelectedMovies}
+                  selectedMovies={selectedMovies}
+                  searchText={searchText}
+                  setSearchText={setSearchText}
                 />
-                {(searchResults.length > 0 || isLoading) && (
-                  <YStack
-                    position="absolute"
-                    top={126}
-                    width="100%"
-                    left={18}
-                    zIndex={10}
-                    borderRadius="$4"
-                    borderColor="$borderColor"
-                    backgroundColor="$background"
-                    maxHeight={320}
-                    borderWidth={1}
-                  >
-                    {isLoading && (
-                      <YStack padding="$4" space="$4" alignItems="center">
-                        <Spinner size="small" color="$color" />
-                      </YStack>
-                    )}
-                    {searchResults.length > 0 && !isLoading && (
-                      <FlatList
-                        data={searchResults}
-                        renderItem={({ item }) => (
-                          <MovieCard
-                            onPress={() => handleSelectMovie(item)}
-                            title={item.title}
-                            posterUri={item.poster_path}
-                          />
-                        )}
-                        keyExtractor={(item) => item.id.toString()}
-                      />
-                    )}
-                  </YStack>
-                )}
                 <FlatList
                   data={selectedMovies}
                   renderItem={({ item }) => (
