@@ -22,29 +22,16 @@ To get a local copy up and running, follow these simple steps.
 
 - Node.js
 - npm or yarn
-- Expo CLI
-
-Install Expo CLI globally using npm:
-
-```bash
-npm install expo-cli --global
-```
-
-Or using yarn:
-
-```bash
-yarn global add expo-cli
-```
 
 ### Installation
 
-1. Clone the repo
+#### 1. Clone the repo
 
 ```bash
   git clone https://github.com/yourusername/cine-sorteio.git
 ```
 
-2. Install NPM packages
+#### 2. Install NPM packages
 
 ```bash
 npm install
@@ -56,7 +43,14 @@ Or using yarn:
 yarn install
 ```
 
-3. Start the project
+#### 3. Configuration
+
+Before running the app, you need to set up the environment variables:
+
+1. Rename the `.env.example` file to `.env`.
+2. Add your TMDB API key to the `EXPO_PUBLIC_API_KEY` variable in the `.env` file.
+
+#### 4. Start the project
 
 ```bash
 npm start
