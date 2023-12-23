@@ -1,5 +1,10 @@
 # Cine Sorteio - Movie Raffle
 
+<p align="center">
+  <img src="https://github.com/RenatoFranca/cine-sorteio/blob/main/assets/screenshots/home-screen.png?raw=true" width="33%" />
+  <img src="https://github.com/RenatoFranca/cine-sorteio/blob/main/assets/screenshots/winner-screen.png?raw=true" width="33%" />
+</p>
+
 Cine Sorteio is a mobile application that offers a fun and interactive way to select movies randomly. This app is perfect for movie nights where deciding what to watch is a real challenge. Powered by React Native and leveraging the TMDB API, Cine Sorteio provides an intuitive user experience with a sleek design for both Android and iOS platforms.
 
 ## Features
