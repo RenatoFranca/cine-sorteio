@@ -6,7 +6,7 @@ import Button from "@/core/Button";
 import Heading from "@/core/Heading";
 import YStack from "@/core/YStack";
 import TouchableOpacity from "@/core/TouchableOpacity";
-import SelectedMovieCard from "@/components/SelectedMovieCard/SelectedMovieCard";
+import SelectedMovieCard from "@/components/SelectedMovieCard";
 import FlatList from "@/core/FlatList";
 import Search from "@/structures/Search";
 import { Movie } from "@/types/Movie";
