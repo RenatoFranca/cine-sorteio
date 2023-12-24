@@ -3,18 +3,13 @@ import SearchLoader from "@/components/SearchLoader";
 import FlatList from "@/core/FlatList";
 import Input from "@/core/Input";
 import YStack from "@/core/YStack";
+import { Movie } from "@/types/Movie";
 import axios from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
 import { useDebounce } from "use-debounce";
 
 const API_KEY = process.env.EXPO_PUBLIC_API_KEY;
-
-type Movie = {
-  id: number;
-  title: string;
-  poster_path: string;
-};
 
 type SearchProps = {
   searchText: string;
